@@ -1,0 +1,192 @@
+.fc {
+  background-color: #141415;
+  color: #f7f7f7;
+  padding: 20px;
+  border-radius: 20px;
+  height: 345px;
+}
+
+@media only screen and (max-width: 1068px) {
+  .fc {
+    margin: 4px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .fc {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.fc h2.fc-toolbar-title {
+  font-size: 20px;
+}
+
+.fc-viewChanger-button.fc-button.fc-button-primary {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='21' viewBox='0 0 20 21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.3333 8.5H4L6.66667 4.5M6.66667 12.5H16L13.3333 16.5' stroke='%23919191' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E ");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 15px;
+  margin-right: 1px;
+}
+
+.fc .fc-header-toolbar.fc-toolbar {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #5e5e5e;
+  margin-bottom: 14px;
+}
+
+.fc .fc-header-toolbar button {
+  background-color: transparent;
+  border: 0px;
+  margin: -10px;
+  padding: 3px;
+}
+
+.fc .fc-header-toolbar button:hover {
+  background-color: #c3e88d;
+}
+
+.fc .fc-icon {
+  color: #919191;
+}
+
+.fc table.fc-scrollgrid,
+.fc td,
+.fc th {
+  border: 0 !important;
+}
+
+.fc table div.fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+  position: relative;
+  height: 100%;
+}
+
+.fc table .fc-daygrid-day-top,
+.fc table .fc-daygrid-day-events {
+  display: flex;
+  justify-content: center;
+}
+
+.fc .fc-daygrid-day-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  margin: 0;
+  background-color: transparent;
+  color: transparent;
+}
+
+.fc table.fc-col-header {
+  margin-bottom: 14px;
+}
+
+.fc td.fc-day.fc-day-today.fc-daygrid-day {
+  color: #f7f7f7;
+  background-color: transparent;
+}
+
+.fc-daygrid-day-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.fc .fc-daygrid-day-number {
+  display: inline-block;
+  width: 90%;
+  text-align: center;
+}
+
+.fc .fc-popover.fc-more-popover.fc-day {
+  background-color: #141415;
+}
+
+.fc .fc-event-description {
+  display: flex;
+  align-items: center;
+}
+
+.fc .fc-event-description svg {
+  margin-right: 3px;
+  margin-left: 7px;
+}
+
+.fc .fc-popover-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.fc .fc-popover.fc-more-popover.fc-day {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.fc .fc-popover-close.fc-icon.fc-icon-x {
+  color: #f7f7f7;
+}
+
+.fc .fc-list-event-dot {
+  border-color: #b0db43 !important;
+  margin-top: 3px !important;
+  border-width: 25px 1.5px !important;
+}
+
+.fc .fc-list-day-cushion.fc-cell-shaded {
+  background-color: #141415;
+}
+
+.fc .fc-listMonth-view.fc-view.fc-list.fc-list-sticky,
+.fc .fc-list-view.fc-view.fc-list.fc-list-sticky,
+.fc table.fc-list-table {
+  border: 0;
+}
+
+.fc .fc-scroller,
+.fc .fc-scroller.fc-scroller-liquid {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.fc .fc-scroller::state(webkit-scrollbar) .fc .fc-scroller.fc-scroller-liquid::state(webkit-scrollbar) {
+  display: none;
+}
+
+.custom_calender .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  background-color: transparent;
+  position: absolute;
+  top: 3.8px;
+  left: 10.2px;
+}
+
+.custom_calender .fc .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+  height: 40px;
+}
+
+:root {
+  --fc-list-event-hover-bg-color: none !important;
+}
+
+.custom_calender .fc .fc-dayGridMonth-view.fc-view.fc-daygrid {
+  display: flex;
+  justify-content: center;
+}
+
+.custom_calender .fc .fc-daygrid-more-link.fc-more-link {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  outline: solid #96d738;
+  font-size: 0px;
+  text-align: center;
+  background-color: transparent;
+  color: transparent;
+  border-radius: 6px;
+}

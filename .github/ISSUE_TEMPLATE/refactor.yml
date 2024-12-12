@@ -1,0 +1,50 @@
+name: "⚒️ REFACTOR"
+description: "코드의 구조와 품질을 개선하기 위한 작업입니다. 기존 기능의 동작은 유지하되 코드 유지보수성과 성능을 향상시킵니다."
+labels: [refactor]
+title: "[REFACTOR] 이슈 이름을 작성해주세요"
+
+body:
+  - type: input
+    id: parentKey
+    attributes:
+      label: "상위 작업 Ticket Number"
+      description: "상위 작업의 Ticket Number를 기입해주세요 (ex: GH-1234)"
+    validations:
+      required: true
+
+  - type: input
+    id: description
+    attributes:
+      label: "리팩토링 요약 (Description)"
+      description: "리팩토링의 목적과 주요 내용을 간략히 작성해주세요 (ex: 코드 중복 제거 및 함수 분리)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: "리팩토링 상세 내용 (Details)"
+      description: "리팩토링이 필요한 이유, 변경할 코드 영역, 기대되는 결과를 작성해주세요"
+      value: |
+        **작업 배경 및 목적:**  
+        (ex: 코드 중복으로 인해 유지보수가 어려워져 중복 제거가 필요합니다.)
+
+        **리팩토링 대상:**  
+        (ex: `UserService` 파일의 사용자 데이터 처리 로직)
+
+        **기대되는 결과:**  
+        (ex: 코드가 모듈화되어 가독성과 유지보수성이 개선됩니다.)
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: "리팩토링 체크리스트 (Tasks)"
+      description: "리팩토링을 위해 필요한 작업 목록을 작성해주세요"
+      value: |
+        - [ ] Task1
+        - [ ] Task2
+        - [ ] Task3
+    validations:
+      required: true

@@ -1,0 +1,330 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-weight: 400;
+  line-height: 1.5;
+  word-break: keep-all;
+  background: #212121 !important;
+  font-color: #f7f7f7;
+}
+
+@layer utilities {
+  .shared-input {
+    @apply bg-background text-fontWhite px-4 py-[10px] min-h-[45px] border border-transparent rounded-lg transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+  }
+
+  .shared-input-gray {
+    @apply bg-fillLight text-fontWhite px-4 py-[10px] min-h-[45px] rounded-lg border border-transparent transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+  }
+
+  .shared-input-gray-2 {
+    @apply bg-fillNormal text-fontWhite px-4 py-[10px] min-h-[45px] rounded-lg border border-transparent transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+  }
+
+  .shared-input-thin-gray {
+    @apply bg-fillLight text-fontWhite text-baseS px-4 py-[10px] h-[36px] rounded-lg border border-transparent transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+  }
+
+  .date-input::-webkit-calendar-picker-indicator {
+    filter: invert(56%) sepia(4%) saturate(4%) hue-rotate(175deg) brightness(94%) contrast(85%);
+  }
+
+  .shared-select {
+    @apply bg-background text-fontWhite px-4 py-[10px] min-h-[45px] border border-transparent rounded-lg transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("/assets/down.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 1.5rem;
+  }
+
+  .shared-select-gray {
+    @apply bg-fillLight text-fontWhite px-4 py-[10px] min-h-[45px] rounded-lg border border-transparent transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("/assets/down.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 1.5rem;
+  }
+
+  .shared-select-gray-2 {
+    @apply bg-fillNormal text-fontWhite px-4 py-[10px] min-h-[45px] rounded-lg border border-transparent transition-all duration-200 ease-in-out focus:border-[#C3E88D] focus:ring-1 focus:ring-[#C3E88D] focus:outline-none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("/assets/down.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 1.5rem;
+  }
+}
+
+@layer utilities {
+  .shared-button-green {
+    @apply text-labelAlternative bg-primary px-4 py-[10px] min-h-[45px] flex items-center justify-center rounded-lg font-baseBold transition-colors duration-300 hover:bg-primaryStrong;
+  }
+
+  .shared-button-small-green {
+    @apply text-labelAlternative bg-primary px-3 py-2 h-[36px] text-baseS flex items-center justify-center rounded-lg font-baseBold transition-colors duration-300 hover:bg-primaryStrong;
+  }
+
+  .shared-button-gray {
+    @apply text-fontWhite bg-fillLight px-4 py-[10px] min-h-[45px] flex items-center justify-center rounded-lg font-baseBold transition-colors duration-300 hover:bg-fillNeutral;
+  }
+
+  .shared-button-small-gray-2 {
+    @apply text-primary text-baseS bg-fillNeutral px-3 py-2 h-[36px] flex items-center justify-center rounded-lg font-baseBold transition-colors duration-300 hover:bg-fillAssistive;
+  }
+
+  .shared-button-black {
+    @apply text-fontWhite bg-fillStrong px-4 py-[10px] min-h-[45px] flex items-center justify-center rounded-lg  font-baseBold transition-colors duration-300 hover:bg-black;
+  }
+
+  .shared-button-white {
+    @apply text-fillStrong bg-fontWhite px-4 py-[10px] min-h-[45px] flex items-center justify-center rounded-lg  font-baseBold transition-colors duration-300 hover:bg-white;
+  }
+
+  .shared-button-outline {
+    @apply text-primary border-[1px] border-primary px-4 py-[10px] min-h-[45px] flex items-center justify-center rounded-lg  font-baseBold transition-colors duration-300 hover:bg-primary hover:text-labelAlternative;
+  }
+
+  .tab-button {
+    @apply flex items-center justify-center px-3 py-2 text-baseS rounded-[12px] text-primary bg-fillNormal hover:bg-fillNormal transition-opacity;
+    width: 60px;
+  }
+
+  .circle-button {
+    @apply p-[10px] rounded-full flex items-center justify-center bg-primary text-labelAlternative hover:bg-primaryHeavy transition-colors duration-300;
+  }
+  .circle-button-gray {
+    @apply p-[10px] rounded-full flex items-center justify-center bg-fillLight hover:bg-fillNeutral text-fontWhite transition-colors duration-300;
+  }
+
+  .square-button-small {
+    @apply flex items-center justify-center w-[45px] h-[45px] rounded-lg bg-fillLight hover:bg-fillNeutral text-white;
+  }
+
+  .square-button {
+    @apply bg-fillLight text-labelNormal s:w-[101px] s:h-[101px] w-[111px] h-[111px] p-[10px] flex items-center justify-center rounded-lg font-baseBold transition-colors duration-300 m-1;
+  }
+
+  .square-button:hover {
+    @apply text-labelAlternative;
+  }
+  .square-button.square-button-default:hover {
+    @apply bg-primary;
+  }
+  .square-button.button-ios:hover {
+    @apply bg-accentMaya;
+  }
+  .square-button.button-android:hover {
+    @apply bg-accentPurple;
+  }
+  .square-button.button-pm:hover {
+    @apply bg-accentColumbia;
+  }
+  .square-button.button-planner:hover {
+    @apply bg-accentPink;
+  }
+  .square-button.button-marketer:hover {
+    @apply bg-accentYellow;
+  }
+  .square-button.button-frontend:hover {
+    @apply bg-primaryStrong;
+  }
+  .square-button.button-backend:hover {
+    @apply bg-accentOrange;
+  }
+  .square-button.button-designer:hover {
+    @apply bg-accentMint;
+  }
+  .square-button.button-devops:hover {
+    @apply bg-accentRed;
+  }
+
+  .square-header-button-gray {
+    @apply flex items-center justify-center w-[36px] h-[36px] rounded-lg bg-fillNeutral hover:bg-fillAssistive  text-white;
+  }
+
+  .shared-button-google {
+    @apply text-labelAlternative bg-white min-w-[303px] px-4 py-[10px] flex items-center justify-center rounded-lg  font-baseBold transition-transform duration-300 hover:shadow-lg;
+  }
+
+  .shared-button-kakao {
+    @apply text-labelAlternative bg-[#FEE500] min-w-[303px] px-4 py-[10px] flex items-center justify-center rounded-lg  font-baseBold transition-transform duration-300 hover:shadow-lg;
+  }
+
+  .shared-button-github {
+    @apply text-fontWhite bg-[#24292F] min-w-[303px] px-4 py-[10px] flex items-center justify-center rounded-lg  font-baseBold transition-transform duration-300 hover:shadow-lg;
+  }
+}
+
+@layer utilities {
+  .label {
+    @apply flex flex-col items-center justify-center text-baseXs px-[12px] py-[5px] rounded-[20px] border transition-opacity;
+  }
+  .label-default {
+    @apply border-labelAlternative text-labelNeutral bg-fillNormal;
+  }
+  .label-primary {
+    @apply border-primary text-primary bg-fillNormal;
+  }
+  .label-secondary {
+    @apply border-labelAlternative text-primary bg-fillLight;
+  }
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.page-disabled .modal-content {
+  pointer-events: auto;
+  user-select: auto;
+}
+
+.modal-content {
+  pointer-events: auto;
+  user-select: auto;
+  padding: 20px;
+  border-radius: 8px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.custom-swal-popup {
+  width: 450px;
+  height: 400px;
+  padding: 20px;
+  font-size: 16px;
+  border-radius: 30px;
+}
+
+/* JobDirectory 관련 스타일 */
+.job-directory {
+  width: 200px;
+  background-color: #1e1e1e;
+  padding: 16px;
+  border-radius: 8px;
+  max-height: 500px;
+}
+
+.job-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.job-item {
+  margin-bottom: 8px;
+  padding: 8px 0;
+  color: #6b6b6b;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.job-item:hover {
+  color: #c3e88d; /* 호버 시 텍스트 색상 */
+}
+
+.job-item.active {
+  color: #c3e88d; /* 선택된 항목의 텍스트 색상 */
+  font-weight: 500; /* 선택된 항목의 폰트 굵기 */
+  border-left: 3px solid #c3e88d; /* 선택된 항목의 좌측 강조선 */
+  padding-left: 12px;
+}
+
+@media (max-width: 768px) {
+  .custom-swal-popup {
+    width: 350px;
+    height: 320px;
+    padding: 15px;
+    font-size: 12px;
+  }
+}
+
+.ql-editor.ql-blank {
+  height: 167px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d0d0d0;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(208, 208, 208, 0.3) transparent;
+}
+
+.Toastify__close-button {
+  color: #f7f7f7 !important;
+}
+
+.custom-tooltip-top-6 {
+  @apply bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-fillStrong text-fontWhite text-xs rounded py-1 px-2;
+}
+
+.custom-tooltip-bottom-3 {
+  @apply top-full mt-2 left-1/2 transform -translate-x-1/2 bg-fillStrong text-fontWhite text-xs rounded py-1 px-2;
+}
+.logo-link {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* hover 상태에서 살짝 확대 */
+.logo-link:hover {
+  transform: scale(1.15); /* 5% 확대 */
+  opacity: 0.9;
+}
+
+/* 클릭할 때 살짝 눌리는 효과 */
+.logo-link:active {
+  transform: scale(0.9); /* 5% 축소 */
+  opacity: 0.8;
+}
+
+.floating-icon {
+  animation: floating 3s ease-in-out infinite;
+}
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

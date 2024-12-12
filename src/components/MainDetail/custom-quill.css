@@ -1,0 +1,64 @@
+.ql-container.ql-snow .ql-editor::before {
+  color: #919191;
+  font-weight: semibold;
+  font-style: normal;
+}
+.ql-toolbar .ql-formats button {
+  fill: none;
+  color: #c4c4c4 !important;
+}
+
+.ql-toolbar .ql-formats button.ql-active {
+  color: #c3e88d;
+}
+div.quill button:hover .ql-stroke,
+.ql-picker-label:hover .ql-stroke {
+  fill: none;
+  stroke: #c3e88d !important;
+}
+
+div.quill button.ql-active .ql-stroke,
+.ql-picker-label.ql-active .ql-stroke {
+  fill: none;
+  stroke: #c3e88d !important;
+}
+
+div.quill span.ql-active .ql-stroke,
+.ql-picker-label.ql-active .ql-stroke {
+  fill: none;
+  stroke: #c3e88d !important;
+}
+
+.ql-snow .ql-picker:hover {
+  color: #c3e88d !important;
+}
+
+.quill .ql-snow .ql-picker-label:hover {
+  color: #c3e88d !important;
+}
+
+.ql-toolbar .ql-size .ql-picker-item[data-value="small"]::before {
+  content: "Small";
+}
+.ql-toolbar .ql-size .ql-picker-item[data-value="large"]::before {
+  content: "Large";
+}
+.ql-toolbar .ql-size .ql-picker-item[data-value="huge"]::before {
+  content: "Huge";
+}
+.ql-toolbar .ql-size .ql-picker-item::before {
+  content: "Normal";
+}
+
+.ql-toolbar .ql-picker-label::before,
+.ql-toolbar .ql-picker-item::before {
+  color: #919191;
+}
+.ql-editor::before {
+  font-size: 16px;
+  color: #919191;
+}
+
+.ql-editor {
+  min-height: 200px;
+}
