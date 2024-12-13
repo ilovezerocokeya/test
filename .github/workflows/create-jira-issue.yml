@@ -8,6 +8,9 @@ jobs:
   create-issue:
     name: Create Jira issue
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # GITHUB_TOKEN에 쓰기 권한 부여
+      issues: write # 이슈 업데이트 및 코멘트 작성 권한 부여
     steps:
       - name: Login
         uses: atlassian/gajira-login@v3
