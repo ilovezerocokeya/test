@@ -12,7 +12,7 @@ jobs:
       contents: write # GITHUB_TOKEN에 쓰기 권한 부여
       issues: write # 이슈 업데이트 및 코멘트 작성 권한 부여
     steps:
-      - name: Login
+      - name: Login to Jira
         uses: atlassian/gajira-login@v3
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
@@ -32,9 +32,9 @@ jobs:
 
       - name: Log Issue Parser
         run: |
-          echo '${{ steps.issue-parser.outputs.issueparser_parentKey }}'
-          echo '${{ steps.issue-parser.outputs.__ticket_number }}'
-          echo '${{ steps.issue-parser.outputs.jsonString }}'
+          echo 'Parent Key: ${{ steps.issue-parser.outputs.issueparser_parentKey }}'
+          echo 'Ticket Number: ${{ steps.issue-parser.outputs.__ticket_number }}'
+          echo 'Parsed JSON: ${{ steps.issue-parser.outputs.jsonString }}'
 
       - name: Convert markdown to Jira Syntax
         uses: peter-evans/jira2md@v1
@@ -47,7 +47,7 @@ jobs:
             ${{ github.event.issue.body }}
           mode: md2jira
 
-      - name: Create Issue
+      - name: Create Issue in Jira
         id: create
         uses: atlassian/gajira-create@v3
         with:
@@ -64,6 +64,11 @@ jobs:
 
       - name: Log created issue
         run: echo "Jira Issue ${{ steps.issue-parser.outputs.issueparser_parentKey }}/${{ steps.create.outputs.issue }} was created"
+
+      - name: Checkout main code
+        uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Create branch with Ticket number
         run: |
