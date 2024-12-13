@@ -1,15 +1,14 @@
-name: Create Jira Issue
+name: Create Jira issue
 on:
   issues:
     types:
       - opened
-
 jobs:
   create-issue:
-    name: Create Jira Issue
+    name: Create Jira issue
     runs-on: ubuntu-latest
     steps:
-      - name: Login to Jira
+      - name: Login
         uses: atlassian/gajira-login@v3
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
@@ -21,64 +20,33 @@ jobs:
         with:
           ref: main
 
-      - name: Determine Template and Issue Type Based on Label
-        id: select-template-issuetype
-        run: |
-          if [[ "${{ contains(github.event.issue.labels.*.name, 'refactor') }}" == "true" ]]; then
-            echo "template=refactor.yml" >> $GITHUB_ENV
-            echo "issuetype=Task" >> $GITHUB_ENV
-          elif [[ "${{ contains(github.event.issue.labels.*.name, 'update') }}" == "true" ]]; then
-            echo "template=update.yml" >> $GITHUB_ENV
-            echo "issuetype=Task" >> $GITHUB_ENV
-          elif [[ "${{ contains(github.event.issue.labels.*.name, 'style') }}" == "true" ]]; then
-            echo "template=style.yml" >> $GITHUB_ENV
-            echo "issuetype=Task" >> $GITHUB_ENV
-          elif [[ "${{ contains(github.event.issue.labels.*.name, 'bug') }}" == "true" ]]; then
-            echo "template=bug.yml" >> $GITHUB_ENV
-            echo "issuetype=Bug" >> $GITHUB_ENV
-          elif [[ "${{ contains(github.event.issue.labels.*.name, 'feature') }}" == "true" ]]; then
-            echo "template=feature.yml" >> $GITHUB_ENV
-            echo "issuetype=Story" >> $GITHUB_ENV
-          elif [[ "${{ contains(github.event.issue.labels.*.name, 'del') }}" == "true" ]]; then
-            echo "template=del.yml" >> $GITHUB_ENV
-            echo "issuetype=Task" >> $GITHUB_ENV
-          elif [[ "${{ contains(github.event.issue.labels.*.name, 'fix') }}" == "true" ]]; then
-            echo "template=fix.yml" >> $GITHUB_ENV
-            echo "issuetype=Bug" >> $GITHUB_ENV
-          else
-            echo "template=default.yml" >> $GITHUB_ENV
-            echo "issuetype=Task" >> $GITHUB_ENV
-          fi
-
       - name: Issue Parser
         uses: stefanbuck/github-issue-parser@v3
         id: issue-parser
         with:
-          template-path: .github/ISSUE_TEMPLATE/${{ env.template }}
+          template-path: .github/ISSUE_TEMPLATE/issue-form.yml
 
       - name: Log Issue Parser
         run: |
-          echo 'Selected Template: ${{ env.template }}'
-          echo 'Selected Issue Type: ${{ env.issuetype }}'
-          echo 'Parent Key: ${{ steps.issue-parser.outputs.issueparser_parentKey }}'
+          echo '${{ steps.issue-parser.outputs.jsonString }}'
 
       - name: Convert markdown to Jira Syntax
         uses: peter-evans/jira2md@v1
         id: md2jira
         with:
           input-text: |
-            ### GitHub Issue Link
+            ### Github Issue Link
             - ${{ github.event.issue.html_url }}
 
             ${{ github.event.issue.body }}
           mode: md2jira
 
-      - name: Create Jira Issue
+      - name: Create Issue
         id: create
         uses: atlassian/gajira-create@v3
         with:
           project: TS
-          issuetype: "${{ env.issuetype }}"
+          issuetype: Subtask
           summary: "${{ github.event.issue.title }}"
           description: "${{ steps.md2jira.outputs.output-text }}"
           fields: |
@@ -88,5 +56,21 @@ jobs:
               }
             }
 
-      - name: Log Created Issue
-        run: echo "Jira Issue ${{ steps.create.outputs.issue }} was created with type ${{ env.issuetype }}"
+      - name: Log created issue
+        run: echo "Jira Issue ${{ steps.issue-parser.outputs.parentKey }}/${{ steps.create.outputs.issue }} was created"
+
+      - name: Checkout develop code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Create branch with Ticket number
+        run: |
+          ISSUE_NUMBER="${{ steps.create.outputs.issue }}"
+          ISSUE_TITLE="${{ github.event.issue.title }}"
+          BRANCH_NAME="${ISSUE_NUMBER}-$(echo ${ISSUE_TITLE} | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9_-]//g')"
+            
+          echo "Creating branch: ${BRANCH_NAME}"
+            
+          git checkout -b "${BRANCH_NAME}"
+          git push origin "${BRANCH_NAME}"
