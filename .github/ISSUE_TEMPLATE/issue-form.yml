@@ -2,12 +2,27 @@ name: "@gather_here 이슈 생성"
 description: "@gather_here레포에 이슈를 생성하며, 생성된 이슈는 Jira와 연동됩니다."
 labels: [order]
 title: "이슈 이름을 작성해주세요"
+
 body:
+  - type: checkboxes
+    id: issueType
+    attributes:
+      label: "이슈 유형 (Issue Type)"
+      description: "해당하는 이슈 유형을 선택해주세요."
+      options:
+        - label: "🛠️ Refactor"
+        - label: "✅ Update"
+        - label: "🐞 Bug"
+        - label: "🎨 Style"
+        - label: "✨ Feature"
+        - label: "🗑️ Delete"
+        - label: "🛠️ Fix"
+
   - type: input
     id: parentKey
     attributes:
       label: "상위 작업 Ticket Number"
-      description: "상위 작업의 Ticket Number를 기입해주세요 (GH-1)"
+      description: "상위 작업의 Ticket Number를 기입해주세요 (ex: GH-1)"
     validations:
       required: true
 
@@ -15,7 +30,7 @@ body:
     id: subIssueKey
     attributes:
       label: "하위 이슈 Ticket Number"
-      description: "해당하는 하위 이슈의 Ticket Number를 입력해주세요 (ex: TS-20)"
+      description: "해당하는 하위 이슈의 Ticket Number를 입력해주세요 (하위 이슈가 없으면 PASS하셔도 됩니다) (ex: GH-18)"
     validations:
       required: false
 
@@ -41,7 +56,7 @@ body:
     id: tasks
     attributes:
       label: "체크리스트(Tasks)"
-      description: "해당 이슈에 대해 필요한 작업목록을 작성해주세요"
+      description: "해당 이슈에 대해 필요한 작업 목록을 작성해주세요"
       value: |
         - [ ] Task1
         - [ ] Task2
