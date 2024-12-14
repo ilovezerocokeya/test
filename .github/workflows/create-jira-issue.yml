@@ -86,7 +86,6 @@ jobs:
       # 🌿 티켓 번호와 이슈 제목으로 브랜치 생성
       - name: Create branch with Ticket number
         run: |
-          ISSUE_NUMBER="${{ steps.create.outputs.issue }}"
           ISSUE_TITLE="${{ github.event.issue.title }}"
           BRANCH_NAME="$(echo ${ISSUE_TITLE} | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9_/-]//g')"
 
