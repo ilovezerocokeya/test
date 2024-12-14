@@ -63,9 +63,6 @@ jobs:
           summary: "${{ github.event.issue.title }}"
           description: |
             ${{ steps.md2jira.outputs.output-text }}
-
-            ### 관련 하위 이슈:
-            - ${{ steps.issue-parser.outputs.issueparser_subIssueKey }}
           fields: |
             {
               "parent": {
@@ -103,3 +100,12 @@ jobs:
           actions: "update-issue"
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "${{ github.event.issue.title }}"
+
+      # 💬 Jira 이슈 링크를 GitHub 이슈에 코멘트로 추가
+      - name: Add comment with Jira issue link
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: "Jira Issue Created: [${{ steps.create.outputs.issue }}](${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create.outputs.issue }})"
