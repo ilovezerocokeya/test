@@ -3,52 +3,69 @@ on:
   issues:
     types:
       - opened
+
 jobs:
   create-issue:
     name: Create Jira issue
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # GITHUB_TOKEN에 리포지토리 컨텐츠 쓰기 권한 부여
+      issues: write # GITHUB_TOKEN에 이슈 업데이트 및 코멘트 작성 권한 부여
+
     steps:
-      - name: Login
+      # 🗝️ Jira 로그인
+      - name: Login to Jira
         uses: atlassian/gajira-login@v3
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
 
+      # 📥 메인 브랜치 체크아웃
       - name: Checkout main code
         uses: actions/checkout@v4
         with:
           ref: main
 
+      # 📑 이슈 템플릿 파싱
       - name: Issue Parser
         uses: stefanbuck/github-issue-parser@v3
         id: issue-parser
         with:
           template-path: .github/ISSUE_TEMPLATE/issue-form.yml
 
+      # 📝 Issue Parser 결과 로그 출력
       - name: Log Issue Parser
         run: |
-          echo '${{ steps.issue-parser.outputs.jsonString }}'
+          echo 'Parent Key: ${{ steps.issue-parser.outputs.issueparser_parentKey }}'
+          echo 'Sub Issue Key: ${{ steps.issue-parser.outputs.issueparser_subIssueKey }}'
+          echo 'Parsed Data: ${{ steps.issue-parser.outputs.jsonString }}'
 
+      # 🔄 마크다운을 Jira Syntax로 변환
       - name: Convert markdown to Jira Syntax
         uses: peter-evans/jira2md@v1
         id: md2jira
         with:
           input-text: |
-            ### Github Issue Link
+            ### GitHub Issue Link
             - ${{ github.event.issue.html_url }}
 
             ${{ github.event.issue.body }}
           mode: md2jira
 
+      # 📝 Jira 이슈 생성
       - name: Create Issue
         id: create
         uses: atlassian/gajira-create@v3
         with:
           project: TS
-          issuetype: 작업
+          issuetype: Task
           summary: "${{ github.event.issue.title }}"
-          description: "${{ steps.md2jira.outputs.output-text }}"
+          description: |
+            ${{ steps.md2jira.outputs.output-text }}
+
+            ### 관련 하위 이슈:
+            - ${{ steps.issue-parser.outputs.issueparser_subIssueKey }}
           fields: |
             {
               "parent": {
@@ -56,21 +73,41 @@ jobs:
               }
             }
 
+      # 🗂️ 생성된 Jira 이슈 로그 출력
       - name: Log created issue
-        run: echo "Jira Issue ${{ steps.issue-parser.outputs.parentKey }}/${{ steps.create.outputs.issue }} was created"
+        run: echo "Jira Issue ${{ steps.issue-parser.outputs.issueparser_parentKey }}/${{ steps.create.outputs.issue }} was created"
 
+      # 🔄 develop 브랜치 체크아웃
       - name: Checkout develop code
         uses: actions/checkout@v4
         with:
           ref: develop
 
+      # 🌿 티켓 번호와 이슈 제목으로 브랜치 생성
       - name: Create branch with Ticket number
         run: |
           ISSUE_NUMBER="${{ steps.create.outputs.issue }}"
           ISSUE_TITLE="${{ github.event.issue.title }}"
-          BRANCH_NAME="${ISSUE_NUMBER}-$(echo ${ISSUE_TITLE} | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9_-]//g')"
-            
+          BRANCH_NAME="${ISSUE_NUMBER}-$(echo ${ISSUE_TITLE} | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9_/-]//g')"
+
           echo "Creating branch: ${BRANCH_NAME}"
-            
+
           git checkout -b "${BRANCH_NAME}"
           git push origin "${BRANCH_NAME}"
+
+      # 📝 GitHub 이슈 제목 업데이트
+      - name: Update issue title
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "update-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "[${{ steps.create.outputs.issue }}] ${{ github.event.issue.title }}"
+
+      # 💬 Jira 이슈 링크를 GitHub 이슈에 코멘트로 추가
+      - name: Add comment with Jira issue link
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: "Jira Issue Created: [${{ steps.create.outputs.issue }}](${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create.outputs.issue }})"
