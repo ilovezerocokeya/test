@@ -10,14 +10,14 @@ body:
       description: "상위 작업의 Ticket Number를 기입해주세요 (GH-1)"
     validations:
       required: true
-      
+
   - type: input
-  id: subIssueKey
-  attributes:
-    label: "하위 이슈 Ticket Number"
-    description: "해당하는 하위 이슈의 Ticket Number를 입력해주세요 (ex: TS-20)"
-  validations:
-    required: false
+    id: subIssueKey
+    attributes:
+      label: "하위 이슈 Ticket Number"
+      description: "해당하는 하위 이슈의 Ticket Number를 입력해주세요 (ex: TS-20)"
+    validations:
+      required: false
 
   - type: input
     id: description
