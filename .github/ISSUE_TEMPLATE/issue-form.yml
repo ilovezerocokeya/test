@@ -4,7 +4,7 @@ labels: [order]
 title: "이슈 이름을 작성해주세요"
 
 body:
-  - type: radiobuttons
+  - type: dropdown
     id: issueType
     attributes:
       label: "이슈 유형 (Issue Type)"
