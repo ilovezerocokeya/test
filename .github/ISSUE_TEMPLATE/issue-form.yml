@@ -4,19 +4,21 @@ labels: [order]
 title: "이슈 이름을 작성해주세요"
 
 body:
-  - type: checkboxes
+  - type: radiobuttons
     id: issueType
     attributes:
       label: "이슈 유형 (Issue Type)"
       description: "해당하는 이슈 유형을 선택해주세요."
       options:
-        - label: "🛠️ Refactor"
-        - label: "✅ Update"
-        - label: "🐞 Bug"
-        - label: "🎨 Style"
-        - label: "✨ Feature"
-        - label: "🗑️ Delete"
-        - label: "🛠️ Fix"
+        - label: "🛠️ Refactor: 기존 코드를 개선하지만 기능은 변경되지 않습니다."
+        - label: "✅ Update: 기존 기능을 수정하거나 개선합니다."
+        - label: "🐞 Bug: 오류나 문제를 수정합니다."
+        - label: "🎨 Style: 코드 스타일이나 UI를 개선합니다 (기능 변경 없음)."
+        - label: "✨ Feature: 새로운 기능을 추가합니다."
+        - label: "🗑️ Delete: 불필요한 기능이나 코드를 제거합니다."
+        - label: "🛠️ Fix: 사소한 문제나 오류를 수정합니다."
+    validations:
+      required: true
 
   - type: input
     id: parentKey
