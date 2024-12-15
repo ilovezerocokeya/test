@@ -10,13 +10,13 @@ body:
       label: "이슈 유형 (Issue Type)"
       description: "해당하는 이슈 유형을 선택해주세요."
       options:
-        - label: "🛠️ Refactor: 기존 코드를 개선하지만 기능은 변경되지 않습니다."
-        - label: "✅ Update: 기존 기능을 수정하거나 개선합니다."
-        - label: "🐞 Bug: 오류나 문제를 수정합니다."
-        - label: "🎨 Style: 코드 스타일이나 UI를 개선합니다 (기능 변경 없음)."
-        - label: "✨ Feature: 새로운 기능을 추가합니다."
-        - label: "🗑️ Delete: 불필요한 기능이나 코드를 제거합니다."
-        - label: "🛠️ Fix: 사소한 문제나 오류를 수정합니다."
+        - "🛠️ Refactor: 기존 코드를 개선하지만 기능은 변경되지 않습니다."
+        - "✅ Update: 기존 기능을 수정하거나 개선합니다."
+        - "🐞 Bug: 오류나 문제를 수정합니다."
+        - "🎨 Style: 코드 스타일이나 UI를 개선합니다 (기능 변경 없음)."
+        - "✨ Feature: 새로운 기능을 추가합니다."
+        - "🗑️ Delete: 불필요한 기능이나 코드를 제거합니다."
+        - "🛠️ Fix: 사소한 문제나 오류를 수정합니다."
     validations:
       required: true
 
